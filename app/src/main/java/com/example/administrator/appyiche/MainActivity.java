@@ -2,14 +2,19 @@ package com.example.administrator.appyiche;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
-import com.example.administrator.appyiche.adpter.ContentFragmentPager;
+import com.example.administrator.appyiche.fragment.CommunityFragment;
+import com.example.administrator.appyiche.fragment.MySelfFragment;
+import com.example.administrator.appyiche.fragment.SelectCarFragment;
+import com.example.administrator.appyiche.fragment.ServiceFragment;
 import com.example.administrator.appyiche.fragment.TopLineFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity{
@@ -18,6 +23,12 @@ public class MainActivity extends BaseActivity{
     private RadioGroup contentRadioGroup;
     private TabLayout contentTabLayouy;
     private List<TopLineFragment> topLineFragments;
+    private FrameLayout contentFragment;
+    private FragmentManager contentFragmentManager;
+    private TopLineFragment topLineFragment;
+    private FragmentTransaction contentfragmentTransaction;
+    private Fragment[] fragments  =
+    {new TopLineFragment(),new CommunityFragment(),new SelectCarFragment(),new ServiceFragment(),new MySelfFragment()};
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -27,24 +38,65 @@ public class MainActivity extends BaseActivity{
     }
 
     private void initVieW(){
-        contentViewPager = (ViewPager) findViewById(R.id.content_viewPager);
+        contentFragmentManager = getSupportFragmentManager();
         contentRadioGroup = (RadioGroup) findViewById(R.id.content_radioGroup);
-        contentTabLayouy = (TabLayout) findViewById(R.id.content_tableLayout);
-        initTopLineFragment();
-        Log.d("MainActivity", "topLineFragments.size():" + topLineFragments.size());
-        ContentFragmentPager contentFragmentPager = new ContentFragmentPager(getSupportFragmentManager(), topLineFragments);
-        //设置适配器
-        contentViewPager.setAdapter(contentFragmentPager);
-        //contentTabLayouy和contentViewPager相互关联
-        contentTabLayouy.setupWithViewPager(contentViewPager);
-    }
+        initFramgment();
+        contentRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId){
+                int index = 0;
+                switch(checkedId){
+                    case R.id.content_title:
+                        index=0;
+                        contentfragmentTransaction = contentFragmentManager.beginTransaction();
+                        contentfragmentTransaction.replace(R.id.content_FrameLayout,fragments[index]);
+                        contentfragmentTransaction.show(fragments[0]);
+                        contentfragmentTransaction.commit();
+                        break;
+                    case R.id.content_community:
+                        index=1;
+                        contentfragmentTransaction = contentFragmentManager.beginTransaction();
+                        contentfragmentTransaction.replace(R.id.content_FrameLayout,fragments[index]);
+                        contentfragmentTransaction.show(fragments[1]);
+                        contentfragmentTransaction.commit();
+                        break;
+                    case R.id.content_selectCar:
+                        index=2;
+                        contentfragmentTransaction = contentFragmentManager.beginTransaction();
+                        contentfragmentTransaction.replace(R.id.content_FrameLayout,fragments[index]);
+                        contentfragmentTransaction.show(fragments[2]);
+                        contentfragmentTransaction.commit();
+                        break;
+                    case R.id.content_service:
+                        index=3;
+                        contentfragmentTransaction = contentFragmentManager.beginTransaction();
+                        contentfragmentTransaction.replace(R.id.content_FrameLayout,fragments[index]);
+                        contentfragmentTransaction.replace(R.id.content_FrameLayout,fragments[index]);
 
-    //初始化Fragment
-    private void initTopLineFragment(){
-        topLineFragments = new ArrayList<>();
-        for(int i = 0; i < 8; i++){
-            TopLineFragment topLineFragment1 = TopLineFragment.newInstance("", "");
-            topLineFragments.add(topLineFragment1);
+                        contentfragmentTransaction.show(fragments[3]);
+                        contentfragmentTransaction.commit();
+                        break;
+                    case R.id.content_myself:
+                        index=4;
+                        contentfragmentTransaction = contentFragmentManager.beginTransaction();
+                        contentfragmentTransaction.replace(R.id.content_FrameLayout,fragments[index]);
+                        contentfragmentTransaction.replace(R.id.content_FrameLayout,fragments[4]);
+                        contentfragmentTransaction.show(fragments[4]);
+                        contentfragmentTransaction.commit();
+                        break;
+                }
+            }
+        });
+    }
+    //把fragment添加到布局里 并显示默认的页面
+    private void initFramgment(){
+        contentfragmentTransaction = contentFragmentManager.beginTransaction();
+        for(int i = 0; i < fragments.length ; i++){
+            Fragment fragment = fragments[i];
+            contentfragmentTransaction.add(R.id.content_FrameLayout,fragment);
         }
+        contentfragmentTransaction.show(fragments[0]);
+        contentfragmentTransaction.commit();
+
     }
 }

@@ -1,0 +1,24 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.TopLineFragment">
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#dcc9c9"
+        app:tabMode="scrollable"
+        app:tabTextColor="#433535"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        android:id="@+id/topline_tableLayout"/>
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/topline_ViewPager">
+        </android.support.v4.view.ViewPager>
+</LinearLayout>
