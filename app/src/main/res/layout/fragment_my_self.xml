@@ -2,10 +2,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.administrator.appyiche.fragment.MySelfFragment">
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context="com.example.administrator.appyiche.fragment.MySelfFragment"
+    >
+    <!-- TODO: 未完成 -->
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_button_my_self_weixin" />
+        <Button
+        android:id="@+id/button2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+        android:background="@drawable/selector_button_my_self_weibo" />
+        <Button
+        android:id="@+id/button3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+        android:background="@drawable/selector_button_my_self_qq" />
+        <Button
+        android:id="@+id/button4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+        android:background="@drawable/selector_button_my_self_yiche" />
+    </LinearLayout>
+
 </FrameLayout>
